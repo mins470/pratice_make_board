@@ -7,8 +7,9 @@
 <title>JSP로 만든 게시판 웹사이트</title>
 </head>
 <body>
-	<script>
+이곳은 메인 페이지
+	<!-- <script>
 		location.href = 'login.jsp';
-	</script>
+	</script> -->
 </body>
 </html>

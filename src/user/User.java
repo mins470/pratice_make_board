@@ -2,41 +2,40 @@ package user;
 
 public class User {
 
-	private String UserID;
-	private String UserPassword;
-	private String UserName;
-	private String UserGender;
-	private String UserEmail;
+	private String userID;
+	private String userPassword;
+	private String userName;
+	private String userGender;
+	private String userEmail;
 	public String getUserID() {
-		return UserID;
+		return userID;
 	}
 	public void setUserID(String userID) {
-		UserID = userID;
+		this.userID = userID;
 	}
 	public String getUserPassword() {
-		return UserPassword;
+		return userPassword;
 	}
 	public void setUserPassword(String userPassword) {
-		UserPassword = userPassword;
+		this.userPassword = userPassword;
 	}
 	public String getUserName() {
-		return UserName;
+		return userName;
 	}
 	public void setUserName(String userName) {
-		UserName = userName;
+		this.userName = userName;
 	}
 	public String getUserGender() {
-		return UserGender;
+		return userGender;
 	}
 	public void setUserGender(String userGender) {
-		UserGender = userGender;
+		this.userGender = userGender;
 	}
 	public String getUserEmail() {
-		return UserEmail;
+		return userEmail;
 	}
 	public void setUserEmail(String userEmail) {
-		UserEmail = userEmail;
+		this.userEmail = userEmail;
 	}
-	
 	
 }
