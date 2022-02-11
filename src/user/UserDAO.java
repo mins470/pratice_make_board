@@ -22,7 +22,7 @@ public class UserDAO {
 			  } catch (Exception e) {
 			   e.printStackTrace();
 			  }
-			 }
+		}
 			     
 			         public int login(String userID, String userPassword) {
 			   String SQL = "SELECT userPassword FROM INFO WHERE userID = ?";          // 오라클에서 만들었던 테이블명
