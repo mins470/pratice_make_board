@@ -71,11 +71,11 @@ public class ForumDAO {
 	}
 	
 	public ArrayList<Forum> getList(int pageNumber) {
-		String SQL = "SELECT * FROM FORUM WHERE ForumID < ? AND forumAvailable = 1 ORDER BY ForumID DESC LIMIT 10";
+		String SQL = "SELECT * FROM FORUM where rownum <=10 AND forumAvailable = 1 order by forumID desc";
 		ArrayList<Forum> list = new ArrayList<Forum>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
+			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Forum forum = new Forum();
@@ -94,7 +94,7 @@ public class ForumDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM FORUM WHERE ForumID < ? AND forumAvailable = 1";
+		String SQL = "SELECT * FROM forum WHERE forumID < ? AND forumAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
