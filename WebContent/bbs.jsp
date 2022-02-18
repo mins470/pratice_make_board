@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="forum.ForumDAO" %>
-<%@ page import="forum.Forum" %>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Bbs" %>
 <%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -43,8 +43,8 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="main.jsp">메인</a></li>
-				<li><a href="board.jsp">게시판</a></li>
+				<li><a href="main.jsp">메인</a></li>
+				<li class="active"><a href="bbs.jsp">게시판</a></li>
 			</ul>
 			<%
 			 if(userID == null) { //회원이 아닌 사람의 경우 회원가입을 할수있도록 설정
@@ -92,15 +92,15 @@
 				</thead>
 				<tbody>
 				<%
-					ForumDAO forumDAO = new ForumDAO();
-					ArrayList<Forum> list = forumDAO.getList(pageNumber);
-					for (int i = 0; i < list.size(); i++) {
+					BbsDAO bbsDAO = new BbsDAO();
+					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
+									for (int i = 0; i < list.size(); i++) {
 				%>
 					<tr>
-						<td><%= list.get(i).getForumID() %></td>
-						<td><a href="view.jsp?forumID=<%= list.get(i).getForumID() %>"><%= list.get(i).getForumTitle() %></a></td>
+						<td><%= list.get(i).getBbsID() %></td>
+						<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
-						<td><%= list.get(i).getForumDate().substring(0,11) + list.get(i).getForumDate().substring(11,13) + "시" + list.get(i).getForumDate().substring(14,16) + "분" %></td>
+						<td><%= list.get(i).getBbsDate().substring(0,11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
 					</tr>	
 					<%
 						}
@@ -110,11 +110,11 @@
 				<%
 					if(pageNumber != 1) {
 				%>
-				<a href="forum.jsp?pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arrow-left">이전</a>
+				<a href="bbs.jsp?pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arrow-left">이전</a>
 				<%
-					} if(forumDAO.nextPage(pageNumber + 1)) {
+					} if(bbsDAO.nextPage(pageNumber + 1)) {
 				%>	
-				<a href="forum.jsp?pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arrow-left">다음</a>
+				<a href="bbs.jsp?pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arrow-left">다음</a>
 				<%
 					}
 				%>	

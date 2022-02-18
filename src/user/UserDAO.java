@@ -14,10 +14,10 @@ public class UserDAO {
 	public UserDAO() {
 		try {
 			
-			String dbURL = "jdbc:oracle:thin:@localhost:1521:xe";
-			   String dbID = "board";
-			   String dbPassword = "1234";
-			   Class.forName("oracle.jdbc.driver.OracleDriver");
+			String dbURL = "jdbc:mysql://localhost:3306/BBS";
+			   String dbID = "root";
+			   String dbPassword = "root";
+			   Class.forName("com.mysql.jdbc.Driver");
 			   conn = DriverManager.getConnection(dbURL, dbID, dbPassword);
 			  } catch (Exception e) {
 			   e.printStackTrace();
@@ -25,7 +25,7 @@ public class UserDAO {
 		}
 			     
 			         public int login(String userID, String userPassword) {
-			   String SQL = "SELECT userPassword FROM INFO WHERE userID = ?";          // 오라클에서 만들었던 테이블명
+			   String SQL = "SELECT userPassword FROM USER WHERE userID = ?";          // 오라클에서 만들었던 테이블명
 			   try {
 				   pstmt = conn.prepareStatement(SQL);
 				   pstmt.setString(1,userID);
@@ -44,7 +44,7 @@ public class UserDAO {
 			  }
 			         
 			  public int join(User user) {
-				  String SQL= "INSERT INTO INFO VALUES (?, ?, ?, ?, ?)";
+				  String SQL= "INSERT INTO USER VALUES (?, ?, ?, ?, ?)";
 				  try {
 					  pstmt = conn.prepareStatement(SQL);
 					  pstmt.setString(1, user.getUserID());

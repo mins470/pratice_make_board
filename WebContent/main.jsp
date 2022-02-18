@@ -31,7 +31,7 @@
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="main.jsp">메인</a></li>
-				<li><a href="board.jsp">게시판</a></li>
+				<li><a href="bbs.jsp">게시판</a></li>
 			</ul>
 			<%
 			 if(userID == null) { //회원이 아닌 사람의 경우 회원가입을 할수있도록 설정
