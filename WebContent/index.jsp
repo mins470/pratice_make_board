@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/custom.css">
 <title>JSP로 만든 게시판 웹사이트</title>
 </head>
 <body>
