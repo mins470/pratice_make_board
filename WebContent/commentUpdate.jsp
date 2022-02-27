@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="css/custom.css">
 
-<title>맛집 게시판</title>
+<title>JSP로 만든 게시판 웹사이트</title>
 </head>
 <body>
 	<%

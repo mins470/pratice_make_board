@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>맛집 게시판</title>
+<title>JSP로 만든 게시판 웹사이트</title>
 <script type="text/javascript">
 	window.name='commentUpdate';
 </script>
