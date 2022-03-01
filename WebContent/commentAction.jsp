@@ -37,6 +37,7 @@
 	MultipartRequest multi = null;
 	
 	multi = new MultipartRequest(request,realFolder,maxSize,encType,new DefaultFileRenamePolicy());		
+	
 	String fileName = multi.getFilesystemName("fileName");
 	String commentText = multi.getParameter("commentText");
 	comment.setCommentText(commentText);

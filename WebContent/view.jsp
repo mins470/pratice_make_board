@@ -97,26 +97,10 @@
 			%>
 		</div>
 		</nav>
-		<div class="container">
-	<%-- div class="form-group">
-		<form method="post" encType = "multipart/form-data" action="commentAction.jsp?bbsID=<%= bbsID %>&boardID=<%=boardID%>">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<tr>
-					<td style="border-bottom:none;" valign="middle"><br><br><%= userID %></td>
-					<td><input type="text" style="height:100px;" class="form-control" placeholder="상대방을 존중하는 댓글을 남깁시다." name = "commentText"></td>
-					<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
-				</tr>
-				<tr>
-					<td colspan="3"><input type="file" name="fileName"></td>
-				</tr>
-			</table>
-		</form>
-	</div> --%>
-</div>
 		<div class ="container">
-			<div class="row">
-				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thead>
+				<div class="col-lg-5">
+					<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+					<thead>
 					<tr>
 					<th style="background-color: #eeeeee; text-align: center;">게시판 글 보기 양식</th>
 					</tr>
@@ -124,20 +108,30 @@
 				<tbody>
 					<tr>
 						<td style="width: 20%;">글 제목</td>
-						<td colspan="2"><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></td>
+						<td colspan="5"><%= bbs.getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></td>
 					</tr>
 					<tr>
 						<td>작성자</td>
-						<td colspan="2"><%= bbs.getUserID() %></td>
+						<td colspan="5"><%= bbs.getUserID() %></td>
 					</tr>
 					<tr>
 						<td>작성일자</td>
-						<td colspan="2"><%= bbs.getBbsDate().substring(0,11) + bbs.getBbsDate().substring(11,13) + "시" + bbs.getBbsDate().substring(14,16) + "분" %></td>
+						<td colspan="5"><%= bbs.getBbsDate().substring(0,11) + bbs.getBbsDate().substring(11,13) + "시" + bbs.getBbsDate().substring(14,16) + "분" %></td>
 					</tr>
 					<tr>
 						<td>내용</td>
-						<td colspan="2" style="min-height: 200px; text-align: left;"><%= bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></td>
+						<td colspan="5" style="min-height: 200px; text-align: left;"><%= bbs.getBbsContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></td>
+				<% 	
+					String real = "C:\\JSP2\\apache-tomcat-8.5.57-windows-x64\\apache-tomcat-8.5.57\\webapps\\pratice_make_board\\bbsUpload";
+					File viewFile = new File(real+"\\"+bbsID+"사진.jpg");
+					if(viewFile.exists()){
+				%>
+					<tr>
+						<td colspan="6"><br><br><img src = "bbsUpload/<%=bbsID %>사진.jpg" border="300px" width="300px" height="300px"><br><br>
+					<% }
+					else {%><td colspan="6"><br><br><%} %>
 					</tr>
+	
 				</tbody>
 				</table>
 				<a href="bbs.jsp" class="btn btn-primary">목록</a>
@@ -152,6 +146,7 @@
 				%>
 				</div>
 		</div>
+		<br>
 	<div class="container">
 			<div class="row">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -170,7 +165,7 @@
 									<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 										<tbody>
 										<tr>						
-										<td align="left"><%= list.get(i).getUserID() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %></td>		
+										<td align="left"><%= list.get(i).getUserID() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= list.get(i).getCommentDate().substring(0,11) + list.get(i).getCommentDate().substring(11,13) + "시" + list.get(i).getCommentDate().substring(14,16) + "분" %></td>		
 										<td colspan="2"></td>
 										<td align="right"><%
 													if(list.get(i).getUserID() != null && list.get(i).getUserID().equals(userID)){
@@ -188,7 +183,7 @@
 										<tr>
 											<td colspan="5" align="left"><%= list.get(i).getCommentText() %>
 											<% 	
-												String commentReal = "C:\\Users\\j8171\\Desktop\\studyhard\\JSP\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BBS\\commentUpload";
+												String commentReal = "C:\\JSP2\\apache-tomcat-8.5.57-windows-x64\\apache-tomcat-8.5.57\\webapps\\pratice_make_board\\commentUpload";
 												File commentFile = new File(commentReal+"\\"+bbsID+"사진"+list.get(i).getCommentID()+".jpg");
 												if(commentFile.exists()){
 											%>	
@@ -213,7 +208,7 @@
 					<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 						<tr>
 							<td style="border-bottom:none;" valign="middle"><br><br><%=userID %></td>
-							<td><input type="text" style="height:100px;" class="form-control" placeholder="상대방을 존중하는 댓글을 남깁시다." name = "commentText"></td>
+							<td><input type="text" style="height:100px;" class="form-control" placeholder="내가 남긴 댓글은 또 다른 나의 거울입니다." name = "commentText"></td>
 							<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
 						</tr>
 						<tr>

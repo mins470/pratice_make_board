@@ -1,7 +1,9 @@
-\<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.io.File" %>
 <%@ page import="java.util.Enumeration" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page import="comment.CommentDAO"%>
 <%@ page import="comment.Comment"%>
 <%@ page import="java.io.PrintWriter"%>
@@ -56,6 +58,7 @@
 			script.println("</script>");
 		}
 		Comment comment = new CommentDAO().getComment(commentID);
+		
 		if (!userID.equals(comment.getUserID())) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");

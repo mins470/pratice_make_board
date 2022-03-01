@@ -62,7 +62,7 @@
 		} else {
 			PrintWriter script = response.getWriter();
 			String real = "C:\\Users\\j8171\\Desktop\\studyhard\\JSP\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\BBS\\commentUpload";
-			File delFile = new File(real+"\\"+bbsID+"사진"+commentID+".jpg");
+			File delFile = new File(real+"\\"+bbsID+"35"+commentID+".jpg");
 			if(delFile.exists()){
 				delFile.delete();
 			}

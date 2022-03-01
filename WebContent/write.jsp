@@ -16,6 +16,10 @@
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	int boardID = 0;
+ 	if (request.getParameter("boardID") != null){
+		boardID = Integer.parseInt(request.getParameter("boardID"));
+	}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -69,21 +73,24 @@
 		</nav>
 		<div class ="container">
 			<div class="row">
-			<form method="post" action="writeAction.jsp">
+			<form method="post" method="post" encType = "multipart/form-data" action="writeAction.jsp?boardID=<%=boardID%>&keyValue=multipart">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 					<thead>
 						<tr>
-						<th colspan="2" style="background-color: #eeeee; text-align: center;">게시판 글쓰기 양식</th>
-
+							<th colspan="5" style="background-color: #eeeee; text-align: center;">게시판 글쓰기 양식</th>
 						</tr>
 					</thead>
 						<tbody>
 						<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
+							<td colspan="5" ><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50"></td>
 						</tr>
+						<% if(boardID==1) %>
 						<tr>	
-						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
+							<td colspan="5"><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"></textarea></td>
 						</tr>	
+						<tr>
+							<td colspan="5"><input type="file" name="fileName"></td>
+						</tr>
 						</tbody>
 				</table>
 				<input type="submit" class="btn btn-primary pull-right" value="글쓰기">

@@ -31,7 +31,7 @@
 	<div class="container" align="center">
 		<div class="col-lg-10">
 			<div class="jumbotron" style="padding-top: 1px;">				
-				<h3><br>댓글수정창</h3>
+				<h3><br>댓글수정</h3>
 				<form name = c_commentUpdate>
 					<input type="text" id="update" style="width:400px;height:50px;" maxlength=1024 value="<%= commentText %>">
 					<input type="button" onclick="send(<%=boardID %>,<%=bbsID %>,<%=commentID %>)" value="수정">

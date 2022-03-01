@@ -113,8 +113,16 @@
 				<tbody>
 				<%
 					BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-									for (int i = 0; i < list.size(); i++) {
+					ArrayList<Bbs> list = bbsDAO.getSearch(request.getParameter("searchField"),
+						request.getParameter("searchText"));
+					if (list.size() == 0) {
+						PrintWriter script = response.getWriter();
+						script.println("<script>");
+						script.println("alert('검색결과가 없습니다.')");
+						script.println("history.back()");
+						script.println("</script>");
+					}
+					for (int i = 0; i < list.size(); i++) {
 				%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
