@@ -4,6 +4,7 @@
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.Math" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,6 +30,10 @@
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
+	 int boardID = 0;
+		if (request.getParameter("boardID") != null){
+			boardID = Integer.parseInt(request.getParameter("boardID"));
+		}
 	%>
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -40,12 +45,20 @@
 			<span class="icon-bar"></span>
 			</button>
 			<a 
-			class="navbar-brand" href="main.jsp">JSP 게시판 웹 사이트</a>
+			class="navbar-brand" href="main.jsp">
+				<p style="font-weight: bold">JSP 게시판 웹 사이트</p>
+			</a>
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
+				<% if (boardID == 1){ %>
+					<li class="active"><a href="bbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
+					<li><a href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
+				<%} else if(boardID == 2){ %>
+					<li><a href="bbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
+					<li class="active"><a href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
+				<% } %>
 			</ul>
 			<%
 			 if(userID == null) { //회원이 아닌 사람의 경우 회원가입을 할수있도록 설정
@@ -80,6 +93,7 @@
 			%>
 		</div>
 		</nav>
+		
 		<div class="container">
 		<div class="row">
 			<form method="post" name="search" action="searchbbs.jsp">
@@ -99,6 +113,18 @@
 			</form>
 		</div>
 	</div>
+	<div class="container">
+		<%
+		if(boardID == 1){
+		%>
+			<h1>이미지 게시판<br></h1>
+			<p>이미지 게시판입니다. 이미지를 위주로 올려놓고 사용하는 게시판입니다.<br><br></p>
+		<% }
+		else if(boardID == 2){
+		%>
+			<h1>자유게시판<br></h1>
+			<p>자유롭게 글을 쓸수있는 공간입니다. 서로 매너를 지켜주세요<br><br></p>
+		<% }%>
 		<div class ="container">
 			<div class="row">
 				<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
@@ -113,12 +139,12 @@
 				<tbody>
 				<%
 					BbsDAO bbsDAO = new BbsDAO();
-					ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-									for (int i = 0; i < list.size(); i++) {
+					ArrayList<Bbs> list = bbsDAO.getList(boardID,pageNumber);
+					for (int i = 0; i < list.size(); i++) {
 				%>
 					<tr>
 						<td><%= list.get(i).getBbsID() %></td>
-						<td><a href="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></a></td>
+						<td><a href="view.jsp?boardID=<%=boardID%>&bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">","&gt;").replaceAll("\n","<br>") %></a></td>
 						<td><%= list.get(i).getUserID() %></td>
 						<td><%= list.get(i).getBbsDate().substring(0,11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
 					</tr>	
@@ -142,6 +168,7 @@
 				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
 				</div>
 		</div>
+	</div>	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 </body>

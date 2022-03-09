@@ -63,7 +63,7 @@
  	 		script.println("</script>");		
  	 	} else {
  	 		BbsDAO bbsDAO = new BbsDAO();
- 	 	 	int bbsID = bbsDAO.write(bbs.getBbsTitle(), userID, bbs.getBbsContent());
+ 	 	 	int bbsID = bbsDAO.write(boardID,bbs.getBbsTitle(), userID, bbs.getBbsContent());
  	 	 	if (bbsID == -1) {
  	 	 		PrintWriter script = response.getWriter();
  	 	 		script.println("<script>");

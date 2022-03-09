@@ -2,12 +2,20 @@ package bbs;
 
 public class Bbs {
 	
+	private int boardID;
 	private int bbsID;
 	private String bbsTitle;
 	private String userID;
 	private String bbsDate;
 	private String bbsContent;
 	private int bbsAvailable;
+	
+	public int getBoardID() {
+		return boardID;
+	}
+	public void setBoardID(int boardID) {
+		this.boardID = boardID;
+	}
 	public int getBbsID() {
 		return bbsID;
 	}

@@ -52,39 +52,56 @@ public class BbsDAO {
 		} 
 		return -1; //데이터베이스 오류
 	}
-	
-	public int write(String bbsTitle, String userID, String bbsContent) {
-		String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?)";
+	public int getCount(int boardID) {
+		String SQL = "SELECT COUNT(*) FROM BBS WHERE boardID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext());
-			pstmt.setString(2, bbsTitle);
-			pstmt.setString(3, userID);
-			pstmt.setString(4, getDate());
-			pstmt.setString(5, bbsContent);
-			pstmt.setInt(6, 1);
-			return pstmt.executeUpdate();
+			pstmt.setInt(1, boardID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {	
+				return rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	public int write(int boardID, String bbsTitle, String userID, String bbsContent) {
+		String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?, ?)";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, getNext());
+			pstmt.setString(3, bbsTitle);
+			pstmt.setString(4, userID);
+			pstmt.setString(5, getDate());
+			pstmt.setString(6, bbsContent);
+			pstmt.setInt(7, 1);
+			pstmt.executeUpdate();
+			return getNext();
 		} catch (Exception e) {
 			e.printStackTrace();	
 		} 
 		return -1; //데이터베이스 오류
 	}
 	
-	public ArrayList<Bbs> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+	public ArrayList<Bbs> getList(int boardID, int pageNumber) {
+		String SQL = "SELECT * FROM BBS WHERE boardID = ? AND bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
 		ArrayList<Bbs> list = new ArrayList<Bbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
+				bbs.setBoardID(rs.getInt(1));
+				bbs.setBbsID(rs.getInt(2));
+				bbs.setBbsTitle(rs.getString(3));
+				bbs.setUserID(rs.getString(4));
+				bbs.setBbsDate(rs.getString(5));
+				bbs.setBbsContent(rs.getString(6));
+				bbs.setBbsAvailable(rs.getInt(7));
 				list.add(bbs);
 			}
 		} catch (Exception e) {
