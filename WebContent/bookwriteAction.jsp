@@ -16,7 +16,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset="UTF-8">
-<title>자유 게시판</title>
+<title>이미지 게시판</title>
 </head>
 <body>
  <%
@@ -24,7 +24,7 @@
  	if (session.getAttribute("userID") !=null) {
  	 	userID = (String) session.getAttribute("userID");
  	}
- 	int boardID = 2;
+ 	int boardID = 1;
  	if (request.getParameter("boardID") != null){
 		boardID = Integer.parseInt(request.getParameter("boardID"));
 	}
@@ -79,7 +79,7 @@
 					oldFile.renameTo(newFile);
 				}
 		 		script.println("<script>");
-				script.println("location.href= \'bbs.jsp?boardID="+boardID+"\'");
+				script.println("location.href= \'bookbbs.jsp?boardID="+boardID+"\'");
  	 	 		script.println("</script>");
  	 	 	}
  	 	}

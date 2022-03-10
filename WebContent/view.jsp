@@ -65,10 +65,10 @@
 			<ul class="nav navbar-nav">
 				<li><a href="main.jsp">메인</a></li>
 				<% if (boardID == 1){ %>
-					<li class="active"><a href="bbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
+					<li class="active"><a href="bookbbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
 					<li><a href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
 				<%} else if(boardID == 2){ %>
-					<li><a href="bbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
+					<li><a href="bookbbs.jsp?boardID=1&pageNumber=1">이미지 게시판</a></li>
 					<li class="active"><a href="bbs.jsp?boardID=2&pageNumber=1">자유 게시판</a></li>
 				<% } %>
 			</ul>

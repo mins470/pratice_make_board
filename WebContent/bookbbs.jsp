@@ -30,7 +30,7 @@
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
-	 int boardID = 2;
+	 int boardID = 1;
 		if (request.getParameter("boardID") != null){
 			boardID = Integer.parseInt(request.getParameter("boardID"));
 		}
@@ -153,35 +153,19 @@
 					%>
 				</tbody>
 				</table>
-				<%if(boardID == 1){ %>
 				<%
 					if(pageNumber != 1) {
 				%>
-				<a href="bbs.jsp?boardID=1&pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arrow-left">이전</a>
+				<a href="bbs.jsp?pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arrow-left">이전</a>
 				<%
 					} if(bbsDAO.nextPage(pageNumber + 1)) {
 				%>	
-				<a href="bbs.jsp?boardID=1&pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arrow-left">다음</a>
+				<a href="bbs.jsp?pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arrow-left">다음</a>
 				<%
 					}
-				} // boardID ==1 일때
 				%>	
 				
-				<%if(boardID == 2){ %>
-				<%
-					if(pageNumber != 1) {
-				%>
-				<a href="bbs.jsp?boardID=2&pageNumber=<%=pageNumber -1 %>" class="btn btn-success btn-arrow-left">이전</a>
-				<%
-					} if(bbsDAO.nextPage(pageNumber + 1)) {
-				%>	
-				<a href="bbs.jsp?boardID=2&pageNumber=<%=pageNumber +1 %>" class="btn btn-success btn-arrow-left">다음</a>
-				<%
-					}
-				} // boardID ==2 일때
-				%>	
-
-				<a href="write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+				<a href="bookwrite.jsp" class="btn btn-primary pull-right">글쓰기</a>
 				</div>
 		</div>
 	</div>	

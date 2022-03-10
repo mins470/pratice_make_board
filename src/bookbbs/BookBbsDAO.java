@@ -1,4 +1,4 @@
-package bbs;
+package bookbbs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,12 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class BbsDAO {
+public class BookBbsDAO {
 	
 	private Connection conn;
 	private ResultSet rs;
 	
-	public BbsDAO() {
+	public BookBbsDAO() {
 		try {
 			
 			String dbURL = "jdbc:mysql://localhost:3306/BBS";
@@ -39,7 +39,7 @@ public class BbsDAO {
 	}
 	
 	public int getNext() {
-		String SQL = "SELECT bbsID FROM BBS ORDER BY bbsID DESC";
+		String SQL = "SELECT bbsID FROM BOOKBBS ORDER BY bbsID DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			rs = pstmt.executeQuery();
@@ -53,7 +53,7 @@ public class BbsDAO {
 		return -1; //데이터베이스 오류
 	}
 	public int getCount(int boardID) {
-		String SQL = "SELECT COUNT(*) FROM BBS WHERE boardID = ?";
+		String SQL = "SELECT COUNT(*) FROM BOOKBBS WHERE boardID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
@@ -67,7 +67,7 @@ public class BbsDAO {
 		return -1;
 	}
 	public int write(int boardID, String bbsTitle, String userID, String bbsContent) {
-		String SQL = "INSERT INTO BBS VALUES (?, ?, ?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO BOOKBBS VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
@@ -85,16 +85,16 @@ public class BbsDAO {
 		return -1; //데이터베이스 오류
 	}
 	
-	public ArrayList<Bbs> getList(int boardID, int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE boardID = ? AND bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
-		ArrayList<Bbs> list = new ArrayList<Bbs>();
+	public ArrayList<BookBbs> getList(int boardID, int pageNumber) {
+		String SQL = "SELECT * FROM BOOKBBS WHERE boardID = ? AND bbsID < ? AND bbsAvailable = 1 ORDER BY bbsID DESC LIMIT 10";
+		ArrayList<BookBbs> list = new ArrayList<BookBbs>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
 			pstmt.setInt(2, getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Bbs bbs = new Bbs();
+				BookBbs bbs = new BookBbs();
 				bbs.setBoardID(rs.getInt(1));
 				bbs.setBbsID(rs.getInt(2));
 				bbs.setBbsTitle(rs.getString(3));
@@ -111,7 +111,7 @@ public class BbsDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID < ? AND bbsAvailable = 1";
+		String SQL = "SELECT * FROM BOOKBBS WHERE bbsID < ? AND bbsAvailable = 1";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
@@ -125,14 +125,14 @@ public class BbsDAO {
 		return false; //데이터베이스 오류
 	}
 	
-	public Bbs getBbs(int bbsID) {
-		String SQL = "SELECT * FROM BBS WHERE bbsID = ?";
+	public BookBbs getBbs(int bbsID) {
+		String SQL = "SELECT * FROM BOOKBBS WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1,  bbsID);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Bbs bbs = new Bbs();
+				BookBbs bbs = new BookBbs();
 				bbs.setBoardID(rs.getInt(1));
 				bbs.setBbsID(rs.getInt(2));
 				bbs.setBbsTitle(rs.getString(3));
@@ -149,7 +149,7 @@ public class BbsDAO {
 	}
 	
 	public int update(int bbsID, String bbsTitle, String bbsContent) {
-		String SQL = "UPDATE BBS SET bbsTitle =?, bbsContent = ? WHERE bbsID = ?";
+		String SQL = "UPDATE BOOKBBS SET bbsTitle =?, bbsContent = ? WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, bbsTitle);
@@ -164,7 +164,7 @@ public class BbsDAO {
 	}
 	
 	public int delete(int bbsID) {
-		String SQL = "DELETE FROM BBS WHERE bbsID = ?";
+		String SQL = "DELETE FROM BOOKBBS WHERE bbsID = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, bbsID);
@@ -176,9 +176,9 @@ public class BbsDAO {
 		
 	}
 	
-	public ArrayList<Bbs> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
-	      ArrayList<Bbs> list = new ArrayList<Bbs>();
-	      String SQL ="select * from bbs WHERE "+searchField.trim();
+	public ArrayList<BookBbs> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
+	      ArrayList<BookBbs> list = new ArrayList<BookBbs>();
+	      String SQL ="select * from BOOKBBS WHERE "+searchField.trim();
 	      try {
 	            if(searchText != null && !searchText.equals("") ){//이거 빼면 안 나온다ㅜ 왜지?
 	                SQL +=" LIKE '%"+searchText.trim()+"%' order by bbsID desc limit 10";
@@ -186,7 +186,7 @@ public class BbsDAO {
 	            PreparedStatement pstmt=conn.prepareStatement(SQL);
 				rs=pstmt.executeQuery();//select
 	         while(rs.next()) {
-	            Bbs bbs = new Bbs();
+	            BookBbs bbs = new BookBbs();
 	            bbs.setBbsID(rs.getInt(1));
 	            bbs.setBbsTitle(rs.getString(2));
 	            bbs.setUserID(rs.getString(3));
